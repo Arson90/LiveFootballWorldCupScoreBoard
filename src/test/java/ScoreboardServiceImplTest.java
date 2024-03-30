@@ -2,6 +2,7 @@ import org.example.match.Match;
 import org.example.scoreboard.Scoreboard;
 import org.example.scoreboard.ScoreboardService;
 import org.example.scoreboard.ScoreboardServiceImpl;
+import org.example.team.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +19,12 @@ public class ScoreboardServiceImplTest {
     @BeforeEach
     public void setUp() {
         matchList = new ArrayList<>();
-        scoreboard = new Scoreboard();
+        matchList.add(Match.createMatch(Team.createTeam("Mexico"), Team.createTeam("Canada")));
+        matchList.add(Match.createMatch(Team.createTeam("Spain"), Team.createTeam("Brazil")));
+        matchList.add(Match.createMatch(Team.createTeam("Germany"), Team.createTeam("France")));
+        matchList.add(Match.createMatch(Team.createTeam("Uruguay"), Team.createTeam("Italy")));
+        matchList.add(Match.createMatch(Team.createTeam("Argentina"), Team.createTeam("Australia")));
+        scoreboard = new Scoreboard(matchList);
         scoreboardService = new ScoreboardServiceImpl();
     }
 
