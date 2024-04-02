@@ -1,4 +1,5 @@
 import org.example.match.Match;
+import org.example.match.MatchStatus;
 import org.example.scoreboard.Scoreboard;
 import org.example.scoreboard.ScoreboardService;
 import org.example.scoreboard.ScoreboardServiceImpl;
@@ -25,7 +26,7 @@ public class ScoreboardServiceImplTest {
         matchList.add(Match.createMatch(Team.createTeam("Uruguay"), Team.createTeam("Italy")));
         matchList.add(Match.createMatch(Team.createTeam("Argentina"), Team.createTeam("Australia")));
         scoreboard = new Scoreboard(matchList);
-        scoreboardService = new ScoreboardServiceImpl();
+        scoreboardService = new ScoreboardServiceImpl(scoreboard);
     }
 
     @Test
@@ -47,5 +48,13 @@ public class ScoreboardServiceImplTest {
 
         //then
         assertEquals(MatchStatus.MATCH_STARTED, match.getMatchStatus());
+    }
+
+    private Match findMatchById(long matchId) {
+        return matchList
+                .stream()
+                .filter(match -> match.getId() == matchId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Match not found with ID: " + matchId));
     }
 }

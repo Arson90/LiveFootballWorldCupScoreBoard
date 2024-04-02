@@ -8,12 +8,14 @@ public class Match {
     private Team homeTeam;
     private Team awayTeam;
     private int totalMatchScore;
+    private MatchStatus matchStatus;
 
     public Match(Team homeTeam, Team awayTeam) {
         this.id = ++idCounter;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.totalMatchScore = 0;
+        this.matchStatus = MatchStatus.MATCH_INITIATED;
     }
 
     public static Match createMatch(final Team homeTeam, final Team awayTeam) {
@@ -34,5 +36,13 @@ public class Match {
 
     public int getTotalMatchScore() {
         return totalMatchScore;
+    }
+
+    public MatchStatus getMatchStatus() {
+        return matchStatus;
+    }
+
+    public void setMatchStatus(MatchStatus matchStatus) {
+        this.matchStatus = matchStatus;
     }
 }
