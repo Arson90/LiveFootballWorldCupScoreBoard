@@ -43,8 +43,11 @@ public class SummaryBoardServiceImplTest {
 
     @Test
     public void shouldReturnMatchWithIdFourOnTheFirstPositionAfterSortList() {
+        //given
+        createMatchList();
+
         //when
-        List<Match> matches = this.summaryBoardService.returnOrderedMatchList();
+        List<Match> matches = this.summaryBoardService.returnSortedMatchList();
         long matchId = matches.get(0).getId();
 
         //then
@@ -53,12 +56,26 @@ public class SummaryBoardServiceImplTest {
 
     @Test
     public void shouldReturnMatchWithIdTreeOnTheLastPositionAfterSortList() {
+        //given
+        createMatchList();
+
         //when
-        List<Match> matches = this.summaryBoardService.returnOrderedMatchList();
+        List<Match> matches = this.summaryBoardService.returnSortedMatchList();
         long matchId = matches.get(4).getId();
 
         //then
         assertEquals(3, matchId);
+    }
+
+    private void createMatchList() {
+        matchList.add(Match.createMatch(new Team("Mexico", 0),new Team("Canada", 5)));
+        matchList.add(Match.createMatch(new Team("Spain", 10),new Team("Brazil", 2)));
+        matchList.add(Match.createMatch(new Team("Germany", 2),new Team("France", 2)));
+        matchList.add(Match.createMatch(new Team("Uruguay", 6),new Team("Italy", 6)));
+        matchList.add(Match.createMatch(new Team("Argentina", 3),new Team("Australia", 1)));
+        matchList.forEach(
+                match -> match.updateTotalScore(match.getHomeTeam().getScore(), match.getAwayTeam().getScore())
+        );
     }
 }
 
