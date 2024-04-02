@@ -6,6 +6,7 @@ import org.example.scoreboard.ScoreboardServiceImpl;
 import org.example.team.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +55,10 @@ public class ScoreboardServiceImplTest {
     public void shouldReturnMatchFinishedStatusAfterFinishMatchWithSecondId() {
         //given
         final Match match = findMatchById(2);
+        match.setMatchStatus(MatchStatus.MATCH_STARTED);
 
         //when
+        Mockito.doNothing().when(summaryBoardService).addMatchToSummaryBoard(Mockito.any());
         scoreboardService.finishMatch(2);
 
         //then
