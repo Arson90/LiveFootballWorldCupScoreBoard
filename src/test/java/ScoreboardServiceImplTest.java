@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-
 public class ScoreboardServiceImplTest {
     private List<Match> matchList;
     private Scoreboard scoreboard;
@@ -77,6 +77,20 @@ public class ScoreboardServiceImplTest {
 
         //then
         assertEquals(MatchStatus.MATCH_FINISHED, match.getMatchStatus());
+    }
+
+    @Test
+    public void matchWithSecondIdShouldBeRemovedFromScoreboardAfterFinishMatch() {
+        //given
+        final Match match = findMatchById(2);
+        match.setMatchStatus(MatchStatus.MATCH_STARTED);
+
+        //when
+        Mockito.doNothing().when(summaryBoardService).addMatchToSummaryBoard(Mockito.any());
+        scoreboardService.finishMatch(2);
+
+        //then
+        assertThrows(IllegalArgumentException.class, () -> findMatchById(2));
     }
 
     private Match findMatchById(long matchId) {
