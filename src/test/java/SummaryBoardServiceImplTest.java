@@ -40,5 +40,25 @@ public class SummaryBoardServiceImplTest {
         //then
         assertEquals(1, this.matchList.size());
     }
+
+    @Test
+    public void shouldReturnMatchWithIdFourOnTheFirstPositionAfterSortList() {
+        //when
+        List<Match> matches = this.summaryBoardService.returnOrderedMatchList();
+        long matchId = matches.get(0).getId();
+
+        //then
+        assertEquals(4, matchId);
+    }
+
+    @Test
+    public void shouldReturnMatchWithIdTreeOnTheLastPositionAfterSortList() {
+        //when
+        List<Match> matches = this.summaryBoardService.returnOrderedMatchList();
+        long matchId = matches.get(4).getId();
+
+        //then
+        assertEquals(3, matchId);
+    }
 }
 
