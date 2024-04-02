@@ -97,6 +97,7 @@ public class ScoreboardServiceImplTest {
     public void shouldReturnOneWhenUpdateScoreForHomeTeamByMatchId() {
         //given
         final Match match = findMatchById(1);
+        match.setMatchStatus(MatchStatus.MATCH_STARTED);
 
         //when
         scoreboardService.updateScoreByMatch(1, 1, 0);

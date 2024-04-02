@@ -13,6 +13,10 @@ public class Team {
         return new Team(name, 0);
     }
 
+    public void updateScore(int tempScore) {
+        this.score = tempScore;
+    }
+
     public String getName() {
         return name;
     }

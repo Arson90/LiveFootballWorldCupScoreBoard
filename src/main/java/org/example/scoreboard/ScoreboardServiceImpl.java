@@ -31,6 +31,16 @@ public class ScoreboardServiceImpl implements ScoreboardService {
                 });
     }
 
+    @Override
+    public void updateScoreByMatch(long matchId, int homeTeam, int awayTeam) {
+        findMatchByIdAndStatus(matchId, MatchStatus.MATCH_STARTED)
+                .ifPresent(match -> {
+                    match.getHomeTeam().updateScore(homeTeam);
+                    match.getAwayTeam().updateScore(awayTeam);
+                    match.updateTotalScore(homeTeam, awayTeam);
+                });
+    }
+
     private Optional<Match> findMatchByIdAndStatus(long matchId, MatchStatus matchStatus) {
         return this.scoreboard.getMatchList().stream()
                 .filter(match -> match.getId() == matchId)
