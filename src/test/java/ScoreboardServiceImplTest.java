@@ -50,6 +50,18 @@ public class ScoreboardServiceImplTest {
         assertEquals(MatchStatus.MATCH_STARTED, match.getMatchStatus());
     }
 
+    @Test
+    public void shouldReturnMatchFinishedStatusAfterFinishMatchWithSecondId() {
+        //given
+        final Match match = findMatchById(2);
+
+        //when
+        scoreboardService.finishMatch(2);
+
+        //then
+        assertEquals(MatchStatus.MATCH_FINISHED, match.getMatchStatus());
+    }
+
     private Match findMatchById(long matchId) {
         return matchList
                 .stream()
