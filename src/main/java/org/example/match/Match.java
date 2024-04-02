@@ -21,6 +21,9 @@ public class Match {
     public static Match createMatch(final Team homeTeam, final Team awayTeam) {
         return new Match(homeTeam, awayTeam);
     }
+    public static void resetIdCounter() {
+        idCounter = 0;
+    }
 
     public long getId() {
         return id;

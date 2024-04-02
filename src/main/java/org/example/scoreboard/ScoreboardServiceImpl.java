@@ -2,14 +2,17 @@ package org.example.scoreboard;
 
 import org.example.match.Match;
 import org.example.match.MatchStatus;
+import org.example.summaryboard.SummaryBoardService;
 
 import java.util.Optional;
 
 public class ScoreboardServiceImpl implements ScoreboardService {
     private Scoreboard scoreboard;
+    private SummaryBoardService summaryBoardService;
 
-    public ScoreboardServiceImpl(Scoreboard scoreboard) {
+    public ScoreboardServiceImpl(Scoreboard scoreboard, SummaryBoardService summaryBoardService) {
         this.scoreboard = scoreboard;
+        this.summaryBoardService = summaryBoardService;
     }
 
     @Override

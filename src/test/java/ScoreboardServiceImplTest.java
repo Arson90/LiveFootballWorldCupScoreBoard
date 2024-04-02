@@ -3,20 +3,29 @@ import org.example.match.MatchStatus;
 import org.example.scoreboard.Scoreboard;
 import org.example.scoreboard.ScoreboardService;
 import org.example.scoreboard.ScoreboardServiceImpl;
+import org.example.summaryboard.SummaryBoardService;
 import org.example.team.Team;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(MockitoExtension.class)
+
 public class ScoreboardServiceImplTest {
     private List<Match> matchList;
     private Scoreboard scoreboard;
     private ScoreboardService scoreboardService;
+    @Mock
+    private SummaryBoardService summaryBoardService;
 
     @BeforeEach
     public void setUp() {
@@ -27,7 +36,12 @@ public class ScoreboardServiceImplTest {
         matchList.add(Match.createMatch(Team.createTeam("Uruguay"), Team.createTeam("Italy")));
         matchList.add(Match.createMatch(Team.createTeam("Argentina"), Team.createTeam("Australia")));
         scoreboard = new Scoreboard(matchList);
-        scoreboardService = new ScoreboardServiceImpl(scoreboard);
+        scoreboardService = new ScoreboardServiceImpl(scoreboard, summaryBoardService);
+    }
+
+    @AfterEach
+    public void cleanUp() {
+        Match.resetIdCounter();
     }
 
     @Test
