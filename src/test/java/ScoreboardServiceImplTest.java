@@ -93,6 +93,18 @@ public class ScoreboardServiceImplTest {
         assertThrows(IllegalArgumentException.class, () -> findMatchById(2));
     }
 
+    @Test
+    public void shouldReturnOneWhenUpdateScoreForHomeTeamByMatchId() {
+        //given
+        final Match match = findMatchById(1);
+
+        //when
+        scoreboardService.updateScoreByMatch(1, 1, 0);
+
+        //then
+        assertEquals(1, match.getHomeTeam().getScore());
+    }
+
     private Match findMatchById(long matchId) {
         return matchList
                 .stream()
