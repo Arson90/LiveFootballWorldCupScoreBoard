@@ -36,4 +36,16 @@ public class ScoreboardServiceImplTest {
         //then
         assertEquals(5, size);
     }
+
+    @Test
+    public void shouldReturnMatchStartedStatusAfterStartMatchWithFirstId() {
+        //given
+        final Match match = findMatchById(1);
+
+        //when
+        scoreboardService.startMatch(1);
+
+        //then
+        assertEquals(MatchStatus.MATCH_STARTED, match.getMatchStatus());
+    }
 }
